@@ -10,7 +10,6 @@ import org.supermarket.model.Price;
 import org.supermarket.model.PriceRule;
 import org.supermarket.model.UnitPrice;
 
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -26,10 +25,11 @@ class CheckoutTest {
     @BeforeEach
     void beforeEach() {
         this.priceRules = Mockito.mock(PriceRules.class);
-        Set<PriceRule> priceRuleSet = new HashSet<>();
-        priceRuleSet.add(new PriceRule("A", 30, UnitPrice.of(2, 50)));
-        priceRuleSet.add(new PriceRule("B", 10, UnitPrice.of(3, 40)));
-        priceRuleSet.add(new PriceRule("C", 15));
+        Set<PriceRule> priceRuleSet = Set.of(
+                new PriceRule("A", 30, UnitPrice.of(2, 50)),
+                new PriceRule("B", 10, UnitPrice.of(3, 40)),
+                new PriceRule("C", 15)
+        );
         Map<String, Integer> itemsByAmount = Map.of("A", 2, "B", 1, "C", 1);
         when(priceRules.priceRuleSet()).thenReturn(priceRuleSet);
         when(priceRules.countTotalItemsPrice(itemsByAmount)).thenReturn(5L);
